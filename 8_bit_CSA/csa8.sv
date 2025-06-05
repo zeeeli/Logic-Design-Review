@@ -29,7 +29,7 @@ module csa8 (
   rca4 a2 (
       .a(a[7:4]),
       .b(b[7:4]),
-      .cin(0),
+      .cin(1'b0),
       .cout(cout_mux_d0),
       .sum(sa)
   );
@@ -38,7 +38,7 @@ module csa8 (
   rca4 a3 (
       .a(a[7:4]),
       .b(b[7:4]),
-      .cin(1),
+      .cin(1'b1),
       .cout(cout_mux_d1),
       .sum(sb)
   );
