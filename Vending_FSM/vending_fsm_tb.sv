@@ -38,13 +38,13 @@ module vending_fsm_tb;
     insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
     insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
 
-    // // Insert 5 directly → should dispense
-    // insert_token(1'b0, 1'b0, 1'b1);  // 5 cent
-    //
-    // // Insert 2 + 2 = 4, then 2 → overpay → r = 1
-    // insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
-    // insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
-    // insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
+    // Insert 5 directly → should dispense
+    insert_token(1'b0, 1'b0, 1'b1);  // 5 cent
+
+    // Insert 2 + 2 = 4, then 2 → overpay → r = 1
+    insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
+    insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
+    insert_token(1'b0, 1'b1, 1'b0);  // 2 cent
 
     // Idle for a few cycles
     #50;
