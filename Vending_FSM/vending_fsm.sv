@@ -34,100 +34,84 @@ module vending_fsm (
 
   logic [2:0] state, next_state;
   logic [2:0] next_r;
-  always_ff @(posedge clk or posedge reset) begin : state_transition
+  logic       next_d;
+
+  // Sequential logic
+  always_ff @(posedge clk or posedge reset) begin
     if (reset) begin
       state <= S0;
-      r     <= 0;
-      d     <= 0;
+      r     <= 3'd0;
+      d     <= 1'b0;
     end else begin
       state <= next_state;
+      r     <= next_r;
+      d     <= next_d;
     end
   end
 
-  always_comb begin : state_logic
+  // Combinational logic
+  always_comb begin
+    next_state = state;
+    next_r     = 3'd0;
+    next_d     = 1'b0;
+
     case (state)
       S0: begin
-        r = 0;
-        d = 0;
-        if (one) begin
-          next_state = S1;
-        end else if (two) begin
-          next_state = S2;
-        end else if (five) begin
-          next_state = S5;
-          next_r = 0;
-        end else begin
-          next_state = S0;
-        end
+        if (one) next_state = S1;
+        else if (two) next_state = S2;
+        else if (five) next_state = S5;
       end
+
       S1: begin
-        if (one) begin
-          next_state = S2;
-        end else if (two) begin
-          next_state = S3;
-        end else if (five) begin
+        if (one) next_state = S2;
+        else if (two) next_state = S3;
+        else if (five) begin
           next_state = S5;
-          next_r = 1;
-        end else begin
-          next_state = S1;
+          next_r = 3'd1;
         end
-
       end
+
       S2: begin
-        if (one) begin
-          next_state = S3;
-        end else if (two) begin
-          next_state = S4;
-        end else if (five) begin
+        if (one) next_state = S3;
+        else if (two) next_state = S4;
+        else if (five) begin
           next_state = S5;
-          next_r = 2;
-        end else begin
-          next_state = S2;
+          next_r = 3'd2;
         end
-
       end
+
       S3: begin
-        if (one) begin
-          next_state = S4;
-        end else if (two) begin
+        if (one) next_state = S4;
+        else if (two) begin
           next_state = S5;
-          next_r = 0;
+          next_r = 3'd0;
         end else if (five) begin
           next_state = S5;
-          next_r = 3;
-        end else begin
-          next_state = S3;
+          next_r = 3'd3;
         end
-
       end
+
       S4: begin
         if (one) begin
           next_state = S5;
-          next_r = 0;
+          next_r = 3'd0;
         end else if (two) begin
           next_state = S5;
-          next_r = 1;
+          next_r = 3'd1;
         end else if (five) begin
           next_state = S5;
-          next_r = 4;
-        end else begin
-          next_state = S4;
+          next_r = 3'd4;
         end
+      end
 
-      end
       S5: begin
-        d = 1;
-        r = next_r;
-        if (one) begin
-          next_state = S1;
-        end else if (two) begin
-          next_state = S2;
-        end else if (five) begin
-          next_state = S5;
-        end else begin
-          next_state = S0;
-        end
+        next_d = 1'b1;  // Dispense drink
+        if (one) next_state = S1;
+        else if (two) next_state = S2;
+        else if (five) next_state = S5;
+        else next_state = S0;
       end
+
       default: next_state = S0;
     endcase
   end
