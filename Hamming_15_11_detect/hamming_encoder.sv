@@ -10,14 +10,22 @@ module hamming_encoder (
   logic [ 4:0] p_bits;  // 5 parity bits
   logic [15:0] data_concat;
 
-  // Assign parity bits
-  always_comb begin : assign_parity_bits
-    p_bits[1] = data_in[0] ^ data_in[1] ^ data_in[3] ^ data_in[4] ^ data_in[6] ^ data_in[8] ^ data_in[10];
-    p_bits[2] = data_in[0] ^ data_in[2] ^ data_in[3] ^ data_in[5] ^ data_in[6] ^ data_in[9] ^ data_in[10];
-    p_bits[3] = data_in[1] ^ data_in[2] ^ data_in[3] ^ data_in[7] ^ data_in[8] ^ data_in[9] ^ data_in[10];
-    p_bits[4] = data_in[4] ^ data_in[5] ^ data_in[6] ^ data_in[7] ^ data_in[8] ^ data_in[9] ^ data_in[10];
-    p_bits[0] = ^{data_in, p[4:1]};  // Overall parity
-  end
+  // // Assign parity bits
+  // always_comb begin : assign_parity_bits
+  // p_bits[1] = data_in[0] ^ data_in[1] ^ data_in[3] ^ data_in[4] ^ data_in[6] ^ data_in[8] ^ data_in[10];
+  // p_bits[2] = data_in[0] ^ data_in[2] ^ data_in[3] ^ data_in[5] ^ data_in[6] ^ data_in[9] ^ data_in[10];
+  // p_bits[3] = data_in[1] ^ data_in[2] ^ data_in[3] ^ data_in[7] ^ data_in[8] ^ data_in[9] ^ data_in[10];
+  // p_bits[4] = data_in[4] ^ data_in[5] ^ data_in[6] ^ data_in[7] ^ data_in[8] ^ data_in[9] ^ data_in[10];
+  // p_bits[0] = ^{data_in,  p_bits[4:1]};  // Overall parity
+  // end
+
+  // NOTE: This is for iVerilog constant selects limitations
+  // Assign parity separately using continuous assignment
+  assign p_bits[1] = data_in[0] ^ data_in[1] ^ data_in[3] ^ data_in[4] ^ data_in[6] ^ data_in[8] ^ data_in[10];
+  assign p_bits[2] = data_in[0] ^ data_in[2] ^ data_in[3] ^ data_in[5] ^ data_in[6] ^ data_in[9] ^ data_in[10];
+  assign p_bits[3] = data_in[1] ^ data_in[2] ^ data_in[3] ^ data_in[7] ^ data_in[8] ^ data_in[9] ^ data_in[10];
+  assign p_bits[4] = data_in[4] ^ data_in[5] ^ data_in[6] ^ data_in[7] ^ data_in[8] ^ data_in[9] ^ data_in[10];
+  assign p_bits[0] = ^{data_in, p_bits[4], p_bits[3], p_bits[2], p_bits[1]};
 
   // concat data and parity
   assign data_out = {data_in[10:4], p_bits[4], data_in[3:1], p_bits[3], data_in[0], p_bits[2:0]};
