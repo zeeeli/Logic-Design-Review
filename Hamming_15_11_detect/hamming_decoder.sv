@@ -5,13 +5,13 @@ module hamming_decoder (
     output logic [15:0] codeword_out
 );
 
-  logic [        15:0] codeword_corr;
-  logic [        10:0] d;  // Data
-  logic [         4:0] p;  // Parity bits
-  logic [$size(p)-1:0] check;  // Data bits used for parity calcs
-  logic [$size(p)-1:0] s;  // Syndrome
-  logic [$size(p)-1:0] sed_location;  // Syndrome
-
+  logic [15:0] codeword_corr;
+  logic [10:0] d;  // Data
+  logic [ 4:0] p;  // Parity bits
+  logic [ 4:0] check;  // Data bits used for parity calcs
+  logic [ 4:0] s;  // Syndrome
+  logic [ 4:0] sed_location;  // Syndrome
+  logic        s_nonzero;  // Neccesary to get around iVerilog quirk
   // NOTE: Bits being packed from MSB - LSB (like encoder)
   assign d = {
     codeword_in[3],  // d0  (position 3)
@@ -45,22 +45,10 @@ module hamming_decoder (
   assign s[4] = p[4] ^ check[4];
 
   // Interpreting syndrome
-  always_comb begin : error_detection
-    if (|s[4:1]) begin
-      if (s[0]) begin
-        // Single error detected
-        sed = 1;
-        sed_location = {s[4], s[3], s[2], s[1]};
-      end else begin
-        // Double error detected
-        ded = 1;
-      end
-    end else begin
-      // No error
-      sed = 0;
-      ded = 0;
-    end
-  end
+  assign s_nonzero = |s[4:1];
+  assign sed = s_nonzero & s[0];
+  assign ded = s_nonzero & ~s[0];
+  assign sed_location = {s[4], s[3], s[2], s[1]};
 
   // Correcting single error detection
   always_comb begin : sec
