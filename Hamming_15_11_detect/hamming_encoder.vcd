@@ -1,0 +1,55 @@
+$date
+	Mon Jun 23 18:52:10 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module hamming_encoder_tb $end
+$var wire 16 ! out [15:0] $end
+$var reg 11 " in [10:0] $end
+$scope module uut $end
+$var wire 11 # data_in [10:0] $end
+$var wire 5 $ p_bits [4:0] $end
+$var wire 16 % data_out [15:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b11000011110011 %
+b1011 $
+b110001110 #
+b110001110 "
+b11000011110011 !
+$end
+#10
+b1010010101010101 !
+b1010010101010101 %
+b11101 $
+b10100100100 "
+b10100100100 #
+#20
+b11101 $
+b1101000100011101 !
+b1101000100011101 %
+b11010000001 "
+b11010000001 #
+#30
+b1010 $
+b1100000010011010 !
+b1100000010011010 %
+b11000001001 "
+b11000001001 #
+#40
+b1100 $
+b1100110000111100 !
+b1100110000111100 %
+b11001100011 "
+b11001100011 #
+#50
