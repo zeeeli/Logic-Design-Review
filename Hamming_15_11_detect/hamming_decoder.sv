@@ -5,6 +5,7 @@ module hamming_decoder (
     output logic [15:0] codeword_out
 );
 
+  logic [        15:0] codeword_corr;
   logic [        10:0] d;  // Data
   logic [         4:0] p;  // Parity bits
   logic [$size(p)-1:0] check;  // Data bits used for parity calcs
@@ -45,26 +46,30 @@ module hamming_decoder (
 
   // Interpreting syndrome
   always_comb begin : error_detection
-    if (|s) begin  // Checking parity bits for SEC
-      if (s[0]) begin  // If syndrome is non-zero AND overall parity fails -> sec
-        sed = '1;
-        sed_location = {s[1], s[2], s[3], s[4]};
-      end else begin  // If syndrome is non-zero AND overall parity passes -> ded
-        ded = '1;
+    if (|s[4:1]) begin
+      if (s[0]) begin
+        // Single error detected
+        sed = 1;
+        sed_location = {s[4], s[3], s[2], s[1]};
+      end else begin
+        // Double error detected
+        ded = 1;
       end
     end else begin
-      sed = '0;
-      ded = '0;
+      // No error
+      sed = 0;
+      ded = 0;
     end
   end
 
   // Correcting single error detection
   always_comb begin : sec
-    if (sed) begin
-      codeword_in[sed_location] = ~codeword_in[sed_location];
+    codeword_corr = codeword_in;
+    if (sed && sed_location != 0) begin
+      codeword_corr[sed_location-1] = ~codeword_in[sed_location-1];
     end
   end
 
   // output correct codeword
-  assign codeword_out = codeword_in;
+  assign codeword_out = codeword_corr;
 endmodule
