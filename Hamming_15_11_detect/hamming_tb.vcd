@@ -1,0 +1,159 @@
+$date
+	Wed Jun 25 17:11:33 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module hamming_tb $end
+$var wire 1 ! sed $end
+$var wire 16 " enc_word [15:0] $end
+$var wire 1 # ded $end
+$var wire 16 $ dec_word [15:0] $end
+$var reg 16 % codeword_in_tb [15:0] $end
+$var reg 11 & d_in [10:0] $end
+$scope module decoder $end
+$var wire 16 ' codeword_in [15:0] $end
+$var wire 16 ( codeword_out [15:0] $end
+$var wire 1 # ded $end
+$var wire 1 ! sed $end
+$var wire 5 ) sed_location [4:0] $end
+$var wire 1 * s_nonzero $end
+$var wire 5 + s [4:0] $end
+$var wire 5 , p [4:0] $end
+$var wire 11 - d [10:0] $end
+$var wire 5 . check [4:0] $end
+$var reg 16 / codeword_corr [15:0] $end
+$scope begin sec $end
+$upscope $end
+$upscope $end
+$scope module encoder $end
+$var wire 11 0 data_in [10:0] $end
+$var wire 5 1 p_bits [4:0] $end
+$var wire 16 2 data_out [15:0] $end
+$upscope $end
+$scope task run_double_error_test $end
+$var reg 11 3 din [10:0] $end
+$var integer 32 4 err_bit1 [31:0] $end
+$var integer 32 5 err_bit2 [31:0] $end
+$upscope $end
+$scope task run_no_error_test $end
+$var reg 11 6 din [10:0] $end
+$upscope $end
+$scope task run_single_error_test $end
+$var reg 11 7 din [10:0] $end
+$var integer 32 8 err_bit [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 8
+bx 7
+b11100011100 6
+b0 5
+b0 4
+bx 3
+b1110001011010001 2
+b1001 1
+b11100011100 0
+bx /
+bx .
+bx -
+bx ,
+bx +
+x*
+b0xxxx )
+bx (
+bx '
+b11100011100 &
+bx %
+bx $
+x#
+b1110001011010001 "
+x!
+$end
+#1
+0#
+0*
+b0 )
+0!
+b0 +
+b1110001011010001 $
+b1110001011010001 (
+b1110001011010001 /
+b11100011100 -
+b1001 ,
+b1001 .
+b1110001011010001 %
+b1110001011010001 '
+#2
+b11101 1
+b1010010101010101 "
+b1010010101010101 2
+b10100100100 &
+b10100100100 0
+b101 8
+b10100100100 7
+#3
+1!
+1*
+b101 )
+b1011 +
+b1010010101010101 $
+b1010010101010101 (
+b1010010101010101 /
+b10100100110 -
+b11101 ,
+b10110 .
+b1010010101110101 %
+b1010010101110101 '
+#4
+b11000011110011 "
+b11000011110011 2
+b1011 1
+b110001110 &
+b110001110 0
+b1101 8
+b110001110 7
+#5
+1!
+1*
+b1101 )
+b10000 .
+b11011 +
+b11000011110011 $
+b11000011110011 (
+b11000011110011 /
+b10001110 -
+b1011 ,
+b1000011110011 %
+b1000011110011 '
+#6
+b1010010101010101 "
+b1010010101010101 2
+b11101 1
+b10100100100 &
+b10100100100 0
+b1010 5
+b101 4
+b10100100100 3
+#7
+1#
+0!
+b1111 )
+b11110 +
+b1010000101110101 $
+b1010000101110101 (
+b1010000101110101 /
+b10100000110 -
+b11101 ,
+b11 .
+b1010000101110101 %
+b1010000101110101 '
+#8
