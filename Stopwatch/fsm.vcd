@@ -1,0 +1,92 @@
+$date
+	Mon Jun 30 13:52:33 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module fsm_tb $end
+$var wire 1 ! en $end
+$var reg 1 " clk $end
+$var reg 1 # rst $end
+$var reg 1 $ start $end
+$var reg 1 % stop $end
+$scope module uut $end
+$var wire 1 " clk $end
+$var wire 1 # rst $end
+$var wire 1 $ start $end
+$var wire 1 % stop $end
+$var wire 1 ! en $end
+$var parameter 2 & IDLE $end
+$var parameter 2 ' PAUSE $end
+$var parameter 2 ( RUN $end
+$var reg 2 ) next_state [1:0] $end
+$var reg 2 * state [1:0] $end
+$scope begin state_transition $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1 (
+b10 '
+b0 &
+$end
+#0
+$dumpvars
+b0 *
+b0 )
+0%
+0$
+1#
+0"
+0!
+$end
+#1
+1"
+#2
+0"
+0#
+#3
+1"
+#4
+0"
+#5
+1"
+#6
+0"
+#7
+1!
+b1 *
+b1 )
+1"
+1$
+#8
+0"
+#9
+0!
+b10 *
+b10 )
+1"
+1%
+0$
+#10
+0"
+#11
+1"
+0%
+#12
+0"
+#13
+1"
+1%
+1$
+#14
+0"
+#15
+1"
+0%
+0$
