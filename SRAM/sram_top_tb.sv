@@ -50,6 +50,18 @@ module sram_top_tb;
       wr_req = 0;
       #10;
     end
+
+    // Now read back and verify
+    for (int i = 0; i < DEPTH; i++) begin
+      addr_in = i;
+      re_req  = 1;
+      #10;
+      re_req = 0;
+
+      #10;  // wait for FSM to complete read
+      $display("Address %0d: Read = %b", i, dout_out);
+    end
+    $finish;
   end
 
 endmodule
